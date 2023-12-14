@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      .container {
+        display: block;
+        width: 50vw;
+        position: relative;
+      }
+
+      .container image {
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <img
+        src="https://cmedia.dayta.asia/raw_xxx/20220501/td0040/td0040_20220501100534269_133159.jpg"
+        alt=""
+      />
+    </div>
+
+    <script>
+      const coordinates = [
+        [708, 23.000000000000004],
+        [708, 257],
+        [970, 257],
+        [970, 23.000000000000004],
+      ];
+      function findGlobalMinMax(coordinates, xy) {
+        let minValue = coordinates[0][xy];
+        let maxValue = coordinates[0][xy];
+
+        for (const coordinate of coordinates) {
+          for (let i = 0; i < 4; i++) {
+            const element = coordinate[xy];
+            minValue = Math.min(minValue, element);
+            maxValue = Math.max(maxValue, element);
+          }
+        }
+
+        return { minValue, maxValue };
+      }
+
+      const { minValue: x1, maxValue: x2 } = findGlobalMinMax(coordinates, 0);
+      const { minValue: y1, maxValue: y2 } = findGlobalMinMax(coordinates, 1);
+
+      const width = x2 - x1;
+      const height = y2 - y1;
+
+      const container = document.querySelector(".container");
+      const label = document.createElement("div");
+      container.style = "position:relative;";
+      label.style = `position: absolute; left: ${x1}px; top: ${y1}px; width: ${width}px; height: ${height}px; border: 3px solid green;`;
+
+      container.appendChild(label);
+    </script>
+  </body>
+</html>
